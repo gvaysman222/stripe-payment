@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Buy {{ item.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ item.name }}</h1>
+  <p>{{ item.description }}</p>
+  <p><strong>Price:</strong> ${{ item.price }}</p>
+  <button id="buy-button" class="btn btn-primary">Buy</button>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://js.stripe.com/v3/"></script>
+  <script type="text/javascript">
+    // Инициализируем Stripe с publishable ключом
+    var stripe = Stripe('{{ stripe_publishable_key }}');
+    var buyButton = document.getElementById('buy-button');
+
+    buyButton.addEventListener('click', function() {
+      // Запрос на создание Checkout Session для данного товара
+      fetch("{% url 'create_checkout_session' item.id %}", { method: 'GET' })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(session) {
+          if (session.error) {
+            alert(session.error);
+          } else {
+            // Редирект на форму оплаты Stripe
+            stripe.redirectToCheckout({ sessionId: session.id });
+          }
+        })
+        .catch(function(error) {
+          console.error("Ошибка:", error);
+        });
+    });
+  </script>
+{% endblock %}
