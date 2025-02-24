@@ -34,6 +34,7 @@ DEBUG=True #Django debug mode
 ALLOWED_HOSTS=localhost,127.0.0.1 #Django allowed hosts
 STRIPE_PUBLISHABLE_KEY=pk_test_USD_XXXXXXXXXXXXXXXXXXXX #Stripe publishable key
 STRIPE_SECRET_KEY=sk_test_USD_XXXXXXXXXXXXXXXXXXXX #Stripe secret key
+BASE_URL=http://127.0.0.1:8000 #Base URL for redirect
 ```
 
 ### 4. Миграции и создание суперпользователя
