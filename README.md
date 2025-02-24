@@ -14,7 +14,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/yourusername/stripe-payment.git
+git clone https://github.com/gvaysman222/stripe-payment.git
 cd stripe-payment
 ```
 
