@@ -7,7 +7,7 @@ from .models import Item, Order
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
-
+base_url = os.getenv('BASE_URL')
 
 @require_GET
 def create_checkout_session(request, id):
@@ -27,8 +27,8 @@ def create_checkout_session(request, id):
                 'quantity': 1,
             }],
             mode='payment',
-            success_url='http://localhost:8000/success/',
-            cancel_url='http://localhost:8000/cancel/',
+            success_url=f'{base_url}/success/',
+            cancel_url=f'{base_url}/cancel/',
         )
         return JsonResponse({'id': session.id})
     except Exception as e:
