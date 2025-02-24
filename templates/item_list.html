@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Список товаров{% endblock %}
+
+{% block content %}
+  <h1>Наши товары</h1>
+  <div class="row">
+    {% for item in items %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <p class="card-text">
+              <strong>Price:</strong>
+              {% if item.currency == "usd" %}
+                ${{ item.price }}
+              {% elif item.currency == "eur" %}
+                €{{ item.price }}
+              {% else %}
+                {{ item.price }} {{ item.currency }}
+              {% endif %}
+            </p>
+            <a href="{% url 'item_detail' item.id %}" class="btn btn-primary">Подробнее</a>
+            <a href="{% url 'add_to_cart' item.id %}" class="btn btn-secondary">Добавить в корзину</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <a href="{% url 'cart_view' %}" class="btn btn-info">Перейти в корзину</a>
+{% endblock %}
